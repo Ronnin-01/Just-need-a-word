@@ -2,17 +2,22 @@ package com.bldsht.justneedaword
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bldsht.justneedaword.databinding.ActivityMainBinding
+import com.bldsht.justneedaword.responsemodel.WordResult
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
+    private lateinit var adapter: MeaningAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -23,14 +28,50 @@ class MainActivity : AppCompatActivity() {
             getMeaning(word)
         }
 
+        //adapter = MeaningAdapter(emptyList())
+        binding.meaningRecyclerView.layoutManager = LinearLayoutManager(this)
+        //binding.meaningRecyclerView.adapter = adapter
+
     }
 
     private fun getMeaning(word: String) {
+        setInProgress(true)
         GlobalScope.launch {
-           val response =  RetrofitCall.dictionaryApi.getMeaning(word)
-            Log.d("Word Response", response.body().toString())
+            try {
+                val response = RetrofitCall.dictionaryApi.getMeaning(word)
+                if(response.body()==null){
+                    throw (Exception())
+                }
+                runOnUiThread {
+                    setInProgress(false)
+                    response.body()?.first()?.let {
+                        setUI(it)
+                    }
+                }
+            }catch (e : Exception) {
+                runOnUiThread {
+                    setInProgress(false)
+                    Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
         }
+    }
 
+    private fun setUI(response: WordResult) {
+        binding.wordTextview.text = response.word
+        binding.phoneticTextview.text = response.phonetic
+       // adapter.updateNewData(response.meanings)
+    }
 
+    private fun setInProgress(inProgress: Boolean) {
+        if (inProgress) {
+            binding.searchBtn.visibility = View.INVISIBLE
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.searchBtn.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.INVISIBLE
+        }
     }
 }
