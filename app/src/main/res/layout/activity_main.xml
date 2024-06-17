@@ -58,9 +58,28 @@
         android:textColor="@color/grey"
         android:id="@+id/phonetic_textview"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:text="Source Link : "
+        android:visibility="gone"
+        android:id="@+id/source_link"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="@color/blue"
+        tools:text="asad, asaad, asdia ,asdajod"
+        android:id="@+id/source_linkTv"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:listitem="@layout/meaning_recycler_row"
         android:id="@+id/meaning_recycler_view"/>
 
 
