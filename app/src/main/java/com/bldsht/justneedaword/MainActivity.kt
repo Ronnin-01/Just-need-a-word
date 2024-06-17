@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 runOnUiThread {
                     setInProgress(false)
-                    Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
+                    Toast.makeText(applicationContext, "No Word Found", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

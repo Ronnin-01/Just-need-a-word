@@ -4,6 +4,7 @@ data class WordResult(
     val word: String,
     val phonetic: String?,
     val meanings: List<Meaning>,
+    val sourceUrls: List<String>?
 )
 
 data class Meaning(
