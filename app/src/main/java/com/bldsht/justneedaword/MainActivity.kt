@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch {
             try {
                 val response = RetrofitCall.dictionaryApi.getMeaning(word)
-                if(response.body()==null){
+                if (response.body() == null) {
                     throw (Exception())
                 }
                 runOnUiThread {
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                         setUI(it)
                     }
                 }
-            }catch (e : Exception) {
+            } catch (e: Exception) {
                 runOnUiThread {
                     setInProgress(false)
                     Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_SHORT)
