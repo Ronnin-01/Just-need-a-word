@@ -28,9 +28,9 @@ class MainActivity : AppCompatActivity() {
             getMeaning(word)
         }
 
-        //adapter = MeaningAdapter(emptyList())
+        adapter = MeaningAdapter(emptyList())
         binding.meaningRecyclerView.layoutManager = LinearLayoutManager(this)
-        //binding.meaningRecyclerView.adapter = adapter
+        binding.meaningRecyclerView.adapter = adapter
 
     }
 
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUI(response: WordResult) {
         binding.wordTextview.text = response.word
         binding.phoneticTextview.text = response.phonetic
-       // adapter.updateNewData(response.meanings)
+        adapter.updateNewData(response.meanings)
     }
 
     private fun setInProgress(inProgress: Boolean) {
