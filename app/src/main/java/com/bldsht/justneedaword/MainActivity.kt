@@ -91,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                             "http://$url" // Add http:// prefix if missing
                         } else {
                             url
+
                         }
 
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(formattedUrl))
@@ -106,7 +107,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.wordTextview.text = response.word
         binding.phoneticTextview.text = response.phonetic
-
         adapter.updateNewData(response.meanings)
     }
 
