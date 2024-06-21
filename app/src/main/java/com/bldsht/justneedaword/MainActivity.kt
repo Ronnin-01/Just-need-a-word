@@ -1,9 +1,11 @@
 package com.bldsht.justneedaword
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
@@ -30,9 +32,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var adapter: MeaningAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
+        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val isAmoledThemeEnabled = sharedPreferences.getBoolean("amoled_theme", false)
+
+        if (isDarkTheme()) {
+            setTheme(R.style.AppTheme_Amoled)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         binding.searchBtn.setOnClickListener {
             val word = binding.searchInput.text.toString()
@@ -54,6 +65,10 @@ class MainActivity : AppCompatActivity() {
         binding.meaningRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.meaningRecyclerView.adapter = adapter
 
+    }
+    private fun isDarkTheme(): Boolean {
+        val currentNightMode = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        return currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
     }
 
     private fun getMeaning(word: String) {
