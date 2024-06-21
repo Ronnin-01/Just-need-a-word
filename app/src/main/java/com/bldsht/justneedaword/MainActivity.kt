@@ -11,7 +11,9 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +37,17 @@ class MainActivity : AppCompatActivity() {
         binding.searchBtn.setOnClickListener {
             val word = binding.searchInput.text.toString()
             getMeaning(word)
+        }
+
+        binding.searchInput.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                event?.action == KeyEvent.ACTION_DOWN &&
+                event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                binding.searchBtn.performClick()
+                true
+            } else {
+                false
+            }
         }
 
         adapter = MeaningAdapter(emptyList())
