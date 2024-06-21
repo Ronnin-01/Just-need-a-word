@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         tools:text="noun"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="21sp"
         android:textColor="@color/my_primary"
         android:id="@+id/part_of_speech_textview"/>
 

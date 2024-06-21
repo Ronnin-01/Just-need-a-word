@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,7 +19,7 @@
             android:layout_toLeftOf="@id/search_btn"
             android:id="@+id/search_input"
             android:background="@drawable/round_corner"
-            android:padding="12dp"/>
+            android:padding="10dp"/>
         <Button
             android:layout_width="100dp"
             android:layout_height="wrap_content"
