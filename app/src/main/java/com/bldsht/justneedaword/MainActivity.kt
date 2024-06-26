@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             setTheme(R.style.AppTheme)
         }
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -92,7 +93,6 @@ class MainActivity : AppCompatActivity() {
                         .show()
                 }
             }
-
         }
     }
 
@@ -136,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         binding.wordTextview.text = response.word
         binding.phoneticTextview.text = response.phonetic
         adapter.updateNewData(response.meanings)
+
     }
 
     private fun setInProgress(inProgress: Boolean) {
